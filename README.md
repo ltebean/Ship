@@ -28,12 +28,12 @@ node index.js
 `ship-server` will listen on the specified port and serve static files from the static.root
 
 
-#### Public static resources
+#### Publish static resources
 First you need to install `ship-cli`
 
 Then use `ship config -h serverHost` to tell ship where the server is.
 
-`Ship` handles file version using content hash exension approach, if you are using gulp, you can use gulp-rev to rename all the files, then your package.json, tell ship your build dir(just append it into your package.json):
+`Ship` handles file version using content hash exension approach, if you are using gulp, you can use gulp-rev to rename all the files, then in your package.json, tell ship the location of your build dir and rev-manefest.json:
 
 ```
 "ship": {
@@ -48,5 +48,12 @@ Finally, use this url to include static resources:
 
 ```
 http://ship-server-host/dynamic/packageName@~1.0.0/js/test.js
+```
+
+It will be redirected to the real path:
+
+```
+http://ship-server-host/packageName/js/test-632d8520bd.js
+
 ```
 
