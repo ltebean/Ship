@@ -46,6 +46,16 @@ app.get('/static/:packageInfo/*', function(req, res) {
 	});
 });
 
+
+app.use('/api', function(req, res, next) {
+	secret = req.get('X-Secret');
+	if (secret && secret == config.apiSecret) {
+		next()
+	} else {
+		res.status(403).send('api secret required');
+	}
+});
+
 app.post('/api/upload', multipartMiddleware, function(req, res) {
 	var body = req.body;
 	var data = {

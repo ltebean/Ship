@@ -63,14 +63,17 @@ exports.execute = function(options) {
         manifest: fs.readFileSync(manifestPath, 'utf-8'),
         zipFile: fs.createReadStream(zipPath),
       };
-      client.publish(formData, function(err, body) {
+      client.publish(formData, function(err, response, body) {
         fs.unlinkSync(zipPath);
-        done(err, body);
+        done(err, response, body);
       })
     },
-  ], function(err, body) {
+  ], function(err, response, body) {
     if (err) {
-      fatal(JSON.stringify(err));
+      fatal(err);
+    }
+    if (response.statusCode != 200) {
+      fatal(body)
     }
     console.log('Success'.green);
   });

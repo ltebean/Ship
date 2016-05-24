@@ -6,6 +6,7 @@ Go to  `ship-server/config`, update `config-{env}.json`, for example:
 ```json
 {
 	"port": 80,
+	"apiSecret": "secret",
 	"mysql": {
 		"host": "localhost",
 		"user": "dev",
@@ -31,7 +32,7 @@ node index.js
 #### Publish static resources
 First you need to install `ship-cli`, just go to the ship-cli directory, run `npm link`
 
-Then use `ship config -h serverHost` to tell ship where the server is.
+Then use `ship config -h serverHost -s apiSecret` to tell ship where the server is and the api secret.
 
 `Ship` handles file version using content hash extension approach, if you are using gulp, you can use gulp-rev to rename all the files, then in your package.json, tell ship the location of your build dir and rev-manefest.json, you can find the demo project in `ship-demo`
 

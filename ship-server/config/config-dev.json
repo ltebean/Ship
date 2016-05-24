@@ -1,5 +1,6 @@
 {
 	"port": 3000,
+	"apiSecret": "secret",
 	"mysql": {
 		"host": "localhost",
 		"user": "dev",
