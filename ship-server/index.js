@@ -13,9 +13,13 @@ var port = config.port
 
 var app = express();
 
-app.use(serveStatic(staticRoot));
+app.use('/static', serveStatic(staticRoot, {
+	setHeaders: function(res, path) {
+		res.setHeader('Cache-control', 'public, max-age=31536000')
+	}
+}));
 
-app.get('/dynamic/:packageInfo/*', function(req, res) {
+app.get('/static/:packageInfo/*', function(req, res) {
 	var packageInfo = req.params.packageInfo;
 	var info = packageInfo.split('@')
 	var packageName = info[0];
@@ -35,7 +39,10 @@ app.get('/dynamic/:packageInfo/*', function(req, res) {
 		if (!finalPath) {
 			return res.sendStatus(404);
 		}
-		return res.redirect(path.join('/', packageName, finalPath));
+		res.set({
+			'Cache-control': 'no-cache'
+		});
+		return res.redirect(path.join('/static', packageName, finalPath));
 	});
 });
 
@@ -64,13 +71,13 @@ app.listen(port, function() {
 });
 
 function unzip(zipPath, destination, cb) {
-  var command = 'unzip -n ' + zipPath + ' -d ' + destination;
-  var unzip = cp.exec(command, []);
-  unzip.on('exit', function(code) {
-    if (code == 0) {
-      return cb(null);
-    } else {
-      return cb(new Error('zip error'));
-    }
-  });
+	var command = 'unzip -n ' + zipPath + ' -d ' + destination;
+	var unzip = cp.exec(command, []);
+	unzip.on('exit', function(code) {
+		if (code == 0) {
+			return cb(null);
+		} else {
+			return cb(new Error('zip error'));
+		}
+	});
 }

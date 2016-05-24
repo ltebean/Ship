@@ -1,0 +1,21 @@
+{
+  "name": "ship-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rev": "^7.0.0"
+  },
+  "ship": {
+    "manifestPath": "build/rev-manifest.json",
+    "zipRoot": "build"
+  }
+}
+
+

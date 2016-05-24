@@ -29,11 +29,11 @@ node index.js
 
 
 #### Publish static resources
-First you need to install `ship-cli`
+First you need to install `ship-cli`, just go to the ship-cli directory, run `npm link`
 
 Then use `ship config -h serverHost` to tell ship where the server is.
 
-`Ship` handles file version using content hash exension approach, if you are using gulp, you can use gulp-rev to rename all the files, then in your package.json, tell ship the location of your build dir and rev-manefest.json:
+`Ship` handles file version using content hash extension approach, if you are using gulp, you can use gulp-rev to rename all the files, then in your package.json, tell ship the location of your build dir and rev-manefest.json, you can find the demo project in `ship-demo`
 
 ```
 "ship": {
@@ -42,18 +42,19 @@ Then use `ship config -h serverHost` to tell ship where the server is.
  }
 ```
 
+
 Run `ship publish` to publish the package to `ship-server`
 
-Finally, use this url to include static resources:
+Finally, use this kind of url to include static resources:
 
 ```
-http://ship-server-host/dynamic/packageName@~1.0.0/js/test.js
+http://ship-server-host/static/packageName@~1.0.0/js/test.js
 ```
 
-It will be redirected to the real path:
+The package satisfies the version range will be found and the request will be redirected to the real path:
 
 ```
-http://ship-server-host/packageName/js/test-632d8520bd.js
+http://ship-server-host/static/packageName/js/test-632d8520bd.js
 
 ```
 
