@@ -35,7 +35,7 @@ Then use `ship config -h serverHost` to tell ship where the server is.
 
 `Ship` handles file version using content hash extension approach, if you are using gulp, you can use gulp-rev to rename all the files, then in your package.json, tell ship the location of your build dir and rev-manefest.json, you can find the demo project in `ship-demo`
 
-```
+```json
 "ship": {
     "manifestPath": "build/rev-manifest.json",
     "zipRoot": "build"
